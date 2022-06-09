@@ -1,0 +1,5 @@
+application:
+  title: Budget-Verwaltung
+  version: 1.0.0
+logging:
+  file.name: logs/budget-verwaltung.log

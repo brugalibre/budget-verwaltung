@@ -1,0 +1,56 @@
+plugins {
+    id 'java-library'
+    id 'application'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '2.5.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group 'com.budget-verwaltung'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+mainClassName = 'com.budgetverwaltung.rest.app.BudgetVerwaltungRestApplication'
+
+application {
+    mainClass = mainClassName
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // Core
+    implementation(group: 'com.piranha', name: 'excel-api', version: '1.0-SNAPSHOT')
+
+    // Others
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30'
+
+    // Spring
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.7'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2'
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact bootJar
+        }
+    }
+}
+
+publish {
+    dependsOn assemble
+}
